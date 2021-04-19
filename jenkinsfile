@@ -31,7 +31,7 @@ pipeline {
                 echo 'make publish'
                 hygieiaBuildPublishStep buildStatus: 'Success'
                 hygieiaArtifactPublishStep artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: ''
-                hygieiaDeployPublishStep applicationName: 'Websphere', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
+                hygieiaDeployPublishStep applicationName: 'websphere', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
             }
       
        }
