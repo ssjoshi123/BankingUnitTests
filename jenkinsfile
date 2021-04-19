@@ -31,7 +31,7 @@ pipeline {
                 echo 'make publish'
                 hygieiaBuildPublishStep buildStatus: 'Success'
                 hygieiaArtifactPublishStep artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: ''
-                hygieiaDeployPublishStep applicationName: 'Bank', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
+                hygieiaDeployPublishStep applicationName: 'Websphere', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
             }
       
        }
@@ -43,8 +43,14 @@ pipeline {
         stage('Deploy to QA env') {
             steps {
                 echo 'make publish'
-                hygieiaDeployPublishStep applicationName: 'Bank', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'QA'
+                hygieiaDeployPublishStep applicationName: 'websphere', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'QA'
             }
-        }        
+        }
+        stage('Deploy to Prod env') {
+            steps {
+                echo 'make publish'
+                hygieiaDeployPublishStep applicationName: 'websphere', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Prod'
     }
+}
+}
 }
