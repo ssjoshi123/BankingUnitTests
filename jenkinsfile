@@ -33,6 +33,7 @@ pipeline {
                 hygieiaArtifactPublishStep artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: ''
                 hygieiaDeployPublishStep applicationName: 'Bank', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
             }
+        
         }
         stage('Smoke Test'){
             steps {
