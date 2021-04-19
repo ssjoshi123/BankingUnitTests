@@ -1,0 +1,49 @@
+pipeline {
+    agent any 
+    environment {
+        workspace=pwd()
+    }
+    stages {
+        stage('Checkout code'){
+            
+            steps{
+                echo "checkout code under ${workspace}"
+                git 'https://github.com/vasouv/BankingUnitTests.git'
+                
+            }
+        }
+        stage('Build') { 
+            steps { 
+                echo "build the code"
+                sh 'mvn package'
+                sh 'ls -l target/'
+            }
+        }
+        stage('Unit Test'){
+            steps {
+                echo 'make unit test'
+                junit 'target/surefire-reports/*.xml'
+                hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: '', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
+            }
+        }
+        stage('Deploy to DEV env') {
+            steps {
+                echo 'make publish'
+                hygieiaBuildPublishStep buildStatus: 'Success'
+                hygieiaArtifactPublishStep artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: ''
+                hygieiaDeployPublishStep applicationName: 'Bank', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
+            }
+        }
+        stage('Smoke Test'){
+            steps {
+                echo 'run smoke test'
+            }
+        }
+        stage('Deploy to QA env') {
+            steps {
+                echo 'make publish'
+                hygieiaDeployPublishStep applicationName: 'Bank', artifactDirectory: 'target', artifactGroup: 'www.letv.bank', artifactName: 'BankingUnitTests*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'QA'
+            }
+        }        
+    }
+}
