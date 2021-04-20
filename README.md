@@ -17,4 +17,4 @@ If the source account can send money **amount <= balance**, then:
 - if Regular deposit with no issues
 
 ## TODO
-Haven't finished the transfer tests. Also, I'm not testing if the amount given is opposite to the operation, meaning negative for deposit and positive for withdrawal..
+Haven't finished the transfer tests. Also, I'm not testing if the amount given is opposite to the operation, meaning negative for deposit and positive for withdrawal...
